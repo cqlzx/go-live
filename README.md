@@ -13,7 +13,7 @@ Go Live is an application aims to allow people to share their unique life experi
 - User can view the ranking system where each host is ranked according to points. The top 3 will receive the honor as "Super Star"
 
 ## Application Architecture
-
+![N|Solid](https://github.com/cqlzx/go-live/blob/master/GoLiveDiagram.png)
 ## Tech Stack
 - Frontend: HTML5, CSS3, jQuery, AngularJS 4, socket.io
 - Backend: node.js, socket.io, redis, MongoDB, Nginx
