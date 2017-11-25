@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-video-canvas',
@@ -7,32 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VideoCanvasComponent implements OnInit {
 
-  videoSrc : any = '';
+  @ViewChild('video') video:ElementRef;
 
   constructor() { }
 
   ngOnInit() {
-    // navigator.getUserMedia = navigator.getUserMedia;
-      // || navigator.webkitGetUserMedia
-      // || navigator.mozGetUserMedia
-      // || navigator.msgGetUserMedia;
-
-    if (navigator.getUserMedia) {
-      const constraints = {
-        video: true
-      };
-      navigator.getUserMedia(constraints, this.loadCam, this.loadFail);
+    let _video = this.video.nativeElement;
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({video: true, audio: true})
+        .then(stream => {
+          _video.src = window.URL.createObjectURL(stream);
+          _video.play();
+        })
     }
-  }
-
-  loadCam(stream) {
-    const url = window.URL.createObjectURL(stream);
-    console.log(url);
-    this.videoSrc = url;
-    console.log('Load camera successfully!');
-  }
-
-  loadFail() {
-    console.log('Load camera failed!');
   }
 }
